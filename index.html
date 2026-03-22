@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semillas Iluro - Semana 12</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gd:#1a5c2a;--gm:#00B050;--gl:#92D050;--tx:#1a1a1a;--tl:#666;--br:#e0e0d8;--rd:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f5f5f0;color:var(--tx);}
+.hdr{background:var(--gd);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:12px;flex-wrap:wrap;}
+.brand h1{font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.5rem);font-weight:700;}
+.badge{display:inline-block;background:var(--gm);color:#fff;font-size:.7rem;font-weight:600;padding:2px 10px;border-radius:20px;margin-top:3px;text-transform:uppercase;letter-spacing:.05em;}
+.contact{font-size:.72rem;color:rgba(255,255,255,.75);text-align:right;line-height:1.6;}
+.contact a{color:#90EE90;text-decoration:none;}
+.cbtn{background:#28a745;color:#fff;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;}
+.cbtn:hover{background:#1e7e34;}
+.cn{background:#fff;color:#28a745;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;}
+.clibar{background:rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.12);padding:8px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.clibar label{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.85);white-space:nowrap;}
+.clibar input{flex:1;min-width:160px;padding:5px 10px;border:1px solid rgba(255,255,255,.3);border-radius:6px;background:rgba(255,255,255,.15);color:#fff;font-family:'DM Sans',sans-serif;font-size:.85rem;}
+.clibar input::placeholder{color:rgba(255,255,255,.45);}
+.clibar input:focus{outline:none;border-color:var(--gm);}
+.plazo{font-size:.72rem;color:#FFD700;font-weight:500;white-space:nowrap;}
+.tabs{background:#fff;border-bottom:2px solid var(--br);display:flex;padding:0 16px;overflow-x:auto;}
+.tbtn{background:none;border:none;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:.87rem;font-weight:500;color:var(--tl);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;}
+.tbtn.on{color:var(--gd);border-bottom-color:var(--gd);font-weight:600;}
+.tbtn:hover{color:var(--gd);}
+.sbar{background:#fff;padding:10px 16px;border-bottom:1px solid var(--br);}
+.sinp{width:100%;padding:8px 12px 8px 34px;border:1.5px solid var(--br);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;background:#f9f9f7;}
+.sinp:focus{outline:none;border-color:var(--gm);}
+.main{padding:16px;max-width:1400px;margin:0 auto;}
+.pnl{display:none;}.pnl.on{display:block;}
+.csec{margin-bottom:18px;border-radius:var(--rd);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);background:#fff;}
+.chdr{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.chdr h2{font-family:'Playfair Display',serif;font-size:.93rem;font-weight:700;}
+.tog{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:transform .2s;flex-shrink:0;}
+.csec.coll .tog{transform:rotate(-90deg);}
+.cbdy{padding:12px 14px;border-top:1px solid rgba(0,0,0,.06);}
+.csec.coll .cbdy{display:none;}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:8px;}
+.pcard{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1.5px solid var(--br);border-radius:8px;background:#fdfdfb;transition:border-color .15s,box-shadow .15s;}
+.pcard:hover{border-color:var(--gm);box-shadow:0 2px 8px rgba(0,176,80,.12);}
+.pcard.sel{border-color:var(--gm);background:#f0fff5;}
+.pinfo{flex:1;min-width:0;}
+.pname{font-size:.8rem;font-weight:500;line-height:1.25;}
+.pcode{font-size:.7rem;color:var(--tl);font-family:monospace;text-decoration:none;display:inline-block;margin-top:1px;}
+.pcode:hover{color:var(--gd);text-decoration:underline;}
+.qctl{display:flex;align-items:center;gap:3px;flex-shrink:0;}
+.qbtn{width:28px;height:28px;border:1.5px solid var(--br);background:#fff;border-radius:6px;cursor:pointer;font-size:1.1rem;font-weight:600;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .12s;}
+.qbtn:hover{background:var(--gl);border-color:var(--gm);color:var(--gd);}
+.qinp{width:42px;height:28px;border:1.5px solid var(--br);border-radius:6px;text-align:center;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;color:var(--tx);}
+.qinp:focus{outline:none;border-color:var(--gm);}
+.qinp::-webkit-inner-spin-button,.qinp::-webkit-outer-spin-button{-webkit-appearance:none;}
+.cg{background:#00B050;color:#fff;}.cy{background:#d4cc00;color:#222;}.cr{background:#dd1111;color:#fff;}
+.cb{background:#00B0F0;color:#fff;}.co{background:#FFC000;color:#222;}.cx{background:#777;color:#fff;}
+.rwrap{background:#fff;border-radius:var(--rd);box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;max-width:820px;margin:0 auto;}
+.rwrap h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gd);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--gm);}
+.rempty{text-align:center;color:var(--tl);padding:36px;font-size:.92rem;}
+.rtbl{width:100%;border-collapse:collapse;font-size:.85rem;}
+.rtbl th{background:var(--gd);color:#fff;padding:7px 10px;text-align:left;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;}
+.rtbl td{padding:6px 10px;border-bottom:1px solid var(--br);}
+.rtbl tr:hover td{background:#f9f9f7;}
+.rgh td{background:#e8f5e9;font-weight:700;font-size:.74rem;text-transform:uppercase;color:var(--gd);padding:5px 10px;}
+.cqty{font-weight:700;color:var(--gd);text-align:center;width:55px;}
+.ccod{font-family:monospace;font-size:.76rem;color:var(--tl);width:78px;}
+.rtot{background:#f0fff5;border:1px solid var(--gm);border-radius:8px;padding:11px 14px;margin-top:12px;display:flex;justify-content:space-between;align-items:center;}
+.rtot .tn{font-size:1.2rem;color:var(--gd);font-weight:700;}
+.rftr{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:flex-end;}
+.btn{border:none;border-radius:8px;padding:9px 18px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.btn-g{background:var(--gd);color:#fff;}.btn-g:hover{background:#0f3d18;}
+.btn-r{background:#dc3545;color:#fff;}.btn-r:hover{background:#b02a37;}
+.btn-w{background:#25D366;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+.btn-w:hover{background:#1ebe5d;}
+@media(max-width:600px){.contact{display:none;}.main{padding:10px;}.pgrid{grid-template-columns:1fr;}.rftr{justify-content:center;}.tabs{padding:0 4px;}.tbtn{padding:11px 10px;font-size:.8rem;}}
+@media print{.hdr,.tabs,.sbar,.rftr{display:none!important;}.pnl{display:block!important;}body{background:#fff;}.rwrap{box-shadow:none;}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-top">
+    <div class="brand"><h1>&#127807; Semillas Iluro S.L.</h1><div><span class="badge">Planta disponible &#8212; Semana 12</span></div></div>
+    <div class="contact">Telf: 937918025 &nbsp;&middot;&nbsp; M&#243;vil: 610690690<br><a href="mailto:lorena@semillasiluro.com">lorena@semillasiluro.com</a></div>
+    <button class="cbtn" onclick="goRes()">&#128722; Pedido <span class="cn" id="CN">0</span></button>
+  </div>
+  <div class="clibar">
+    <label for="CLI">Cliente:</label>
+    <input type="text" id="CLI" placeholder="Tu nombre o empresa...">
+    <span class="plazo">&#9200; Pedido antes del jueves a las 18:30 h</span>
+  </div>
+</header>
+<nav class="tabs">
+  <button class="tbtn on" onclick="swTab('pack', this)">&#127804; Planta en Pack</button>
+  <button class="tbtn" onclick="swTab('maceta', this)">&#129524; Planta en Maceta</button>
+  <button class="tbtn" id="TB3" onclick="swTab('resumen', this)">&#128203; Resumen del Pedido</button>
+</nav>
+<div class="sbar" id="SB">
+  <input class="sinp" type="search" placeholder="Buscar por nombre o c&#243;digo..." oninput="doSearch(this.value)">
+</div>
+<div class="main">
+  <div class="pnl on" id="pnl-pack"></div>
+  <div class="pnl" id="pnl-maceta"></div>
+  <div class="pnl" id="pnl-resumen">
+    <div class="rwrap">
+      <h2>&#128203; Resumen &#8212; Semana 12</h2>
+      <div id="RC"><div class="rempty">A&#250;n no has a&#241;adido ninguna planta.</div></div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="appdata">{"pack":{"VARIADO":{"color":"#00B050","items":[{"name":"AGRETO (BARBA DE FRAILE)","code":"H547"}]},"CEBOLLAS":{"color":"#FFFF00","items":[{"name":"AMARILLA PLANA PIEMONTESE","code":"H519"},{"name":"BLANCA PLANA DE MAYO","code":"H512"},{"name":"BLANCA REDONDA","code":"H502"},{"name":"BLANCA TIERNA CIPOLLOTTO","code":"H506"},{"name":"BORETTANA SOTTACETO","code":"H524"},{"name":"CHARLOTA ROJA FRANCESA","code":"H507"},{"name":"COBRIZA DE MILAN","code":"H521"},{"name":"DORADA DE BOLONIA","code":"H503"},{"name":"DORADA DE PARMA PRECOZ","code":"H513"},{"name":"GIGANTE DULCE PLANA","code":"H525"},{"name":"MONTORESE","code":"H523"},{"name":"REDONDA DE TROPEA","code":"H501"},{"name":"ROJA  DE INVIERNO","code":"H522"},{"name":"ROJA DULCE SAVONESE","code":"H514"},{"name":"ROJA DULCISIMA BREME","code":"H526"},{"name":"ROJA LARGA DE FLORENCIA","code":"H505"},{"name":"ROJA LARGA TROPEA","code":"H515"},{"name":"ROJA VIVA DE LAS FUENTES","code":"H520"},{"name":"TOSCANA O ROJA FLORENCIA","code":"H500"}]},"PEREJIL":{"color":"#FF0000","items":[{"name":"COMPACTO TITAN","code":"H115"},{"name":"COMUN PERFUMADO","code":"H117"},{"name":"DE RAIZ","code":"H118"},{"name":"RIZADO","code":"H116"}]},"TOMATES":{"color":"#FF0000","items":[{"name":"ADATILADO AZUL","code":"H30Z"},{"name":"ADILATADO NARANJA","code":"H459"},{"name":"ADILATADO PULPA VERDE","code":"H461"},{"name":"ADITALADO  TRILLY","code":"H30B"},{"name":"ADITALADO AMARILLO","code":"H30P"},{"name":"ADITALADO GIOLLINO","code":"H303"},{"name":"ADITALADO LOBELLO","code":"H320"},{"name":"CANESTRINO DI LUCCA","code":"H329"},{"name":"CHERRY BINGO","code":"H332"},{"name":"CHERRY DULCE STRILLO","code":"H304"},{"name":"CHERRY MUY DULCE  APERO","code":"H30E"},{"name":"CHERRY PAKI","code":"H336"},{"name":"COLGAR AMARILLO PONDEROSA","code":"H326"},{"name":"CORAZON CLASICO","code":"H313"},{"name":"CORAZON LIGURE CUOREMIO","code":"H319"},{"name":"CORAZON LIGURE DIABLO","code":"H30H"},{"name":"CORAZON LIGURE ROSA","code":"H30G"},{"name":"CUERNO DE LOS ANDES","code":"H321"},{"name":"ESTRIADO FIORENTINO","code":"H312"},{"name":"GIGANTE BEEFSTEAK","code":"H337"},{"name":"GIGANTE PATATERO","code":"H306"},{"name":"HONEY MOON RESISTENTE","code":"H30I"},{"name":"HORUS EN RACIMO","code":"H338"},{"name":"MARMANDE MARMYTO","code":"H334"},{"name":"NEGRO DE CRIMEA","code":"H302"},{"name":"OVALADO LUANA","code":"H309"},{"name":"OVALADO NEGRO","code":"H460"},{"name":"OVALADO ZEBRINO","code":"H30V"},{"name":"PANTANO ROMANESCO","code":"H331"},{"name":"PERA D\u00b4ABRUZZO","code":"H330"},{"name":"PIENNOLO VESUVIANO","code":"H458"},{"name":"PRINCIPE BURGUES","code":"H335"},{"name":"QUINTO GUSTO","code":"H30C"},{"name":"REDONDO ENSALADA MELODY","code":"H325"},{"name":"REDONDO ENSALADA OPTIMA","code":"H317"},{"name":"REDONDO ENSALADA SARACENO","code":"H333"},{"name":"REDONDO ENSALADA WEB","code":"H305"},{"name":"ROSA SORRENTO","code":"H457"},{"name":"SALSA SALADYN TOP","code":"H30A"},{"name":"SAN MARZANO  ADAMO","code":"H322"},{"name":"SAN MARZANO CIRANO","code":"H318"},{"name":"SAN MARZANO DE VERANO","code":"H327"},{"name":"SAN MARZANO GIGANTE GRISON","code":"H462"},{"name":"SAN MARZANO SCATALONE","code":"H324"},{"name":"VESUVIANO TRENDY","code":"H30D"}]},"ACELGAS":{"color":"#00B050","items":[{"name":"LISA VERDE HIERBA DE TALLO","code":"H043"},{"name":"VERDE PENCA BLANCA","code":"H040"}]},"ACHICORIAS":{"color":"#00B050","items":[{"name":"CATALONIA GIGANTE","code":"H345"},{"name":"DE TALLO DULCE TRIESTE","code":"H369"},{"name":"MOTEADA LUSIA PRECOZ","code":"H351"},{"name":"PAN DE AZ\u00daCAR","code":"H340"},{"name":"ROJA DE CHIOGGIA PRECOZ","code":"H350"},{"name":"TREVISO PRECOZ","code":"H360"}]},"LECHUGAS":{"color":"#00B050","items":[{"name":"4 ESTACIONES JERRICAN","code":"H204"},{"name":"BARBA DE FRAILE ROJA","code":"H153"},{"name":"BARBA DE FRAILE VERDE","code":"H152"},{"name":"BATAVIA VERDE","code":"H158"},{"name":"BRASILE\u00d1A ROJA GRAZER","code":"H182"},{"name":"BRASILE\u00d1A VERDE","code":"H181"},{"name":"CANASTA","code":"H200"},{"name":"DA PINZIMONIO MIX","code":"H208"},{"name":"GENTILINA AMARILLA","code":"H160"},{"name":"GENTILINA ROJA","code":"H170"},{"name":"GHIACCIOLINA REINA DEL HIELO","code":"H183"},{"name":"HOJA ROBLE MIX","code":"H203"},{"name":"ICEBERG ADELA","code":"H180"},{"name":"LOLLO MIX (AMARILLA Y ROJA)","code":"H202"},{"name":"PESCIATINA","code":"H161"},{"name":"REPOLLO AMARILLA SANDALINA","code":"H151"},{"name":"REPOLLO ROJA RIVALE","code":"H159"},{"name":"REPOLLO VERDE KUZCO","code":"H150"},{"name":"REPOLLO VERDE RANGER","code":"H154"},{"name":"ROJA DE TRENTO","code":"H155"},{"name":"ROMANA AMARILLA FLAVIUS","code":"H192"},{"name":"ROMANA VERDE GRETTONA","code":"H207"},{"name":"SALANOVA LISA VERDE","code":"H209"},{"name":"SALANOVA MIX HOJAS  ROBLE","code":"H211"},{"name":"SALANOVA MIX HOJAS LISAS","code":"H206"},{"name":"SALANOVA MIX HOJAS RIZADAS","code":"H210"},{"name":"SUPER CANASTA","code":"H201"}]},"AJOS":{"color":"#FFFF00","items":[{"name":"BLANCO","code":"H508"},{"name":"ROJO","code":"H509"}]},"ALBAHACAS":{"color":"#FF0000","items":[{"name":"GENOVESA ITALIANA GERVASO","code":"H030"},{"name":"HOJA LECHUGA","code":"H032"},{"name":"RESISTENTE  ZEUS","code":"H031"},{"name":"PRECOZ CAPRICCIO","code":"H452"},{"name":"ROMANA ARTEMISA","code":"H451"},{"name":"VIOLETA PRECOZ Var.OPAL","code":"H453"}]},"COLES":{"color":"#FFFF00","items":[{"name":"COLINABO BLANCO","code":"H074"},{"name":"COLINABO VIOLETA","code":"H077"},{"name":"KALE O RIZADA","code":"H107"},{"name":"NEGRA DE TOSCANA RAVEN","code":"H071"},{"name":"REPOLLO CORAZON VERDE TEAMA","code":"H081"},{"name":"REPOLLO REDONDA PRECOZ","code":"H080"}]},"APIOS":{"color":"#FFFF00","items":[{"name":"APIO PERFUMADO","code":"H394"},{"name":"DORADO","code":"H391"},{"name":"VERDE","code":"H390"}]},"BERENJENAS":{"color":"#FF0000","items":[{"name":"BLANCA GAIA","code":"H254"},{"name":"GENOVESE PEQUE\u00d1A","code":"H253"},{"name":"LARGA BLANCA","code":"H257"},{"name":"LARGA NEGRA","code":"H241"},{"name":"OVALADA  NEGRA","code":"H251"},{"name":"RAYADA","code":"H255"},{"name":"REDONDA VIOLETA","code":"H252"},{"name":"SETA Var.DELIZIA","code":"H250"}]},"CEBOLLINOS":{"color":"#FF0000","items":[{"name":"PERENNE","code":"H034"}]},"COLIFLOR":{"color":"#FFFF00","items":[{"name":"PRECOZ CHAMBORD","code":"H064"}]},"ESCAROLAS":{"color":"#00B050","items":[{"name":"RIZADA CORAZ\u00d3N DE ORO","code":"H130"},{"name":"VERDE BUBIKOPF","code":"H140"}]},"PIMIENTOS":{"color":"#FF0000","items":[{"name":"CUADRADO AMARILLO","code":"H281"},{"name":"CUADRADO ROJO","code":"H301"},{"name":"CUADRADO VERDE","code":"H300"},{"name":"CUERNO AMARILLO","code":"H299"},{"name":"CUERNO CITRINO","code":"H288"},{"name":"CUERNO DE CABRA","code":"H463"},{"name":"CUERNO PESCARESE","code":"H297"},{"name":"CUERNO ROJO","code":"H298"},{"name":"CUNEO AMARILLO","code":"H285"},{"name":"CUNEO ROJO","code":"H289"},{"name":"DIGERIBLE CITRINO SALANA","code":"H294"},{"name":"FRIGITELLO","code":"H283"},{"name":"NOSTRANO MANTOVANO","code":"H292"},{"name":"NOSTRANO PIACENTINO","code":"H284"},{"name":"PICANTE CALABRESE","code":"H286"},{"name":"PICANTE CAYENA CORTO","code":"H29A"},{"name":"PICANTE LARGO","code":"H291"},{"name":"PICANTE RED. ROJO CHERRY","code":"H290"},{"name":"RUBIO CIGARRETA","code":"H293"},{"name":"TOPEPO ROJO DE RELLENO","code":"H282"}]},"ESPINACAS":{"color":"#00B050","items":[{"name":"VERDE","code":"H510"}]},"BERZAS":{"color":"#FFFF00","items":[{"name":"PRECOZ OSCURA","code":"H095"}]},"FRESAS":{"color":"#FF0000","items":[{"name":"4 ESTACIONES  MALGA","code":"H490"},{"name":"4 ESTACIONES CHARLOTTE","code":"H496"},{"name":"4 ESTACIONES MURANO","code":"H494"},{"name":"DEL BOSQUE REINA DEL VALLE","code":"H495"},{"name":"MARA DES BOIS","code":"H497"},{"name":"UNIFERA PRECOZ SANDRA","code":"H492"}]},"BROCOLIS":{"color":"#FFFF00","items":[{"name":"CALABRESE PRECOZ GREEN MAGIC","code":"H070"}]},"CALABACINES":{"color":"#FF0000","items":[{"name":"BLANCO LARGO CHIARABELLA","code":"H417"},{"name":"BOLO\u00d1ES MEJICANA","code":"H411"},{"name":"CLARO DE FLOR STRIKE","code":"H425"},{"name":"CLARO GENOVES","code":"H429"},{"name":"CLARO RESISTENTE  GRAFFITI","code":"H410"},{"name":"DE FLOR ESTRIADO DE ITALIA","code":"H426"},{"name":"DE SARZANA","code":"H419"},{"name":"LARGO FLORENTINO MARZIO","code":"H418"},{"name":"OSCURO ALHOJA","code":"H420"},{"name":"REDONDO CLARO NIZA","code":"H421"},{"name":"REDONDO OSCURO","code":"H428"},{"name":"ROMANESCO MARZIO","code":"H412"},{"name":"TREPADOR CLARO STRATOS","code":"H427"}]},"GUISANTES":{"color":"#FFFF00","items":[{"name":"MEDIA RAMA DIABLO","code":"H553"}]},"HABAS":{"color":"#FFFF00","items":[{"name":"SUPERAGUADULCE","code":"H554"}]},"TOMATE DE CONSERVA":{"color":"#FF0000","items":[{"name":"ENANO ADITALADO MINUET","code":"H30N"},{"name":"ENANO CERECILLA","code":"H323"},{"name":"ENANO MARMANDE","code":"H30R"},{"name":"ENANO REINA OR PIZZUTELLO","code":"H310"},{"name":"ENANO SALSA  RIO GRANDE","code":"H30F"},{"name":"ENANO SALSA  TIPO ROMA  LIVIO","code":"H314"},{"name":"ENANO SALSA OVALADO  BIG RIO","code":"H308"},{"name":"ENANO SALSA S.MARZANO INCAS","code":"H311"},{"name":"ENANO SALSA SUPER ROMA","code":"H307"},{"name":"ENANO SECO PATATARELLO","code":"H339"}]},"HIERBA DE GATOS":{"color":"#FF0000","items":[{"name":"MEZCLA DE FESTUCAS","code":"HM550"}]},"HINOJOS":{"color":"#FFFF00","items":[{"name":"PRECOZ BELLOTO","code":"H120"}]},"JUDIAS":{"color":"#FFFF00","items":[{"name":"MATA BAJA AMARILLA","code":"H559"},{"name":"MATA BAJA BORLOTTO","code":"H552"},{"name":"MATA BAJA CANNELINO","code":"H561"},{"name":"MATA BAJA SUPERMARCONI","code":"H558"},{"name":"MATA BAJA VERDE","code":"H551"},{"name":"MATA BAJA VIOLETA","code":"H560"},{"name":"MATA TREPADORA METRO","code":"H563"}]},"CALABAZAS":{"color":"#FF0000","items":[{"name":"MARINA DE CHIOGGIA","code":"H414"},{"name":"MINI BUTTERNUT F1","code":"H430"},{"name":"REDONDA DELICA","code":"H424"},{"name":"RUGOSA LARGA VIOLINA","code":"H423"},{"name":"TROMPETA DE ALBENGA","code":"H415"}]},"PUERROS":{"color":"#FFFF00","items":[{"name":"GIGANTE MATEJKO","code":"H504"}]},"REMOLACHAS":{"color":"#00B050","items":[{"name":"ROJA DETROIT","code":"H042"}]},"VALERIANA":{"color":"#00B050","items":[{"name":"VERDE  TROPHY","code":"H511"}]},"RUCULA":{"color":"#FF0000","items":[{"name":"RUCULA  SELVATICA ATHENA","code":"H480"}]},"MAIZ":{"color":"#FFFF00","items":[{"name":"SUPER DULCE","code":"H556"}]},"ZANAHORIAS":{"color":"#FFFF00","items":[{"name":"NANTESA","code":"H052"},{"name":"VIOLETA","code":"H049"}]},"SANDIAS":{"color":"#FF0000","items":[{"name":"CRIMSON OBLA","code":"H010"},{"name":"LARGA CLARA","code":"H013"},{"name":"LARGA ESTRIADA","code":"H014"},{"name":"PRECOCISIMA ESTRIADA MYACO","code":"H012"},{"name":"SUGAR BABY","code":"H011"}]},"PEPINOS":{"color":"#FF0000","items":[{"name":"CARRUSEL BARATTIERE","code":"H10Z"},{"name":"CLASICO CAMAN","code":"H110"},{"name":"DIGERIBLE INDURAIN","code":"H10Y"},{"name":"LARGO BURPLESS","code":"H112"},{"name":"LARGO HOLANDES","code":"H10C"},{"name":"MELONCELLA O SPUREDDA","code":"H10F"},{"name":"PEQUE\u00d1O SONATE","code":"H111"},{"name":"TORTARELLO CLARO","code":"H114"}]},"FLOR CORTADA":{"color":"#FFFF00","items":[{"name":"CLAVEL","code":"HF105"},{"name":"REINA MARGARITA","code":"HF107"},{"name":"STATICE","code":"HF111"},{"name":"ZINNIA GIGANTE FLOR DALIA","code":"HF110"}]},"FLOR UTIL PARA HUERTO":{"color":"#FFFF00","items":[{"name":"CALENDULA","code":"HF118"},{"name":"CAPUCHINA","code":"HF119"},{"name":"TAGETE","code":"HF120"}]}},"maceta":{"MACETA 10":{"color":"#00B0F0","items":[]},"M 10 INJERTADA":{"color":"#FF0000","items":[]},"M 14 PIMIENTOS PICANTES":{"color":"#FFC000","items":[]},"ACELGAS":{"color":"#00B0F0","items":[{"name":"VERDE  COSTA BLANCA","code":"H681"}]},"PIMIENTOS PICANTES":{"color":"#00B0F0","items":[{"name":"SOBRERO DE OBISPO","code":"H656"},{"name":"LARGO DE CAYENNA","code":"HPF2"},{"name":"CAYENA LARGO PIERINO","code":"H591"},{"name":"LARGO MULTICOLOR","code":"HPF24"},{"name":"DE RELLENO","code":"H599"},{"name":"REDONDO MULTICOLOR","code":"HPF25"},{"name":"CAYENA CORTO","code":"H640"},{"name":"REDONDO CEREZA","code":"HPF1"},{"name":"CALABRESE","code":"H675"},{"name":"ETNA (MANOJOS ROJOS)","code":"HPF6"},{"name":"HABANERO ROJO","code":"H679"},{"name":"STROMBOLI  MANOJOS NARANJAS","code":"HPF28"},{"name":"HABANERO NARANJA","code":"H722"},{"name":"JALAPE\u00d1O / MEJICANO","code":"HPF18"},{"name":"HABANERO CHOCOLATE","code":"H682"},{"name":"ACRATA O VIAGRA NATURAL","code":"HPF43"},{"name":"NAGA MORICH ROJO","code":"H683"},{"name":"HOT DAISY CAP","code":"HPF48"},{"name":"SCORPION ROJO","code":"H723"},{"name":"NARIZ DE DIABLO PANCHO","code":"HPF22"},{"name":"SCORPION AMARILLO","code":"H724"},{"name":"VIOLETA","code":"HPF4"},{"name":"CAROLINA REAPER","code":"H783"},{"name":"TABASCO","code":"HPF31"},{"name":"CAYENA CORTO","code":"HPF21"},{"name":"FUEGO DE LA PRADERA","code":"HPF9"},{"name":"CEDRINO","code":"HPF32"},{"name":"CALABRESE DIABLO","code":"HPF19"},{"name":"JAMAICAN SCOTCH BONNET","code":"HPF41"},{"name":"CHUPETINO","code":"HPF27"},{"name":"PIMIENTA DE NEYDE","code":"HPF42"},{"name":"FATALII  AMARILLO","code":"HPF33"},{"name":"HABANERO ROJO","code":"HPF3"},{"name":"HABANERO NARANJA","code":"HPF20"},{"name":"HABANERO BLANCO","code":"HPF23"},{"name":"HABANERO CHOCOLATE","code":"HPF17"},{"name":"NAGA MORICH SALMON","code":"HPF47"},{"name":"NAGA MORICH ROJO","code":"HPF26"},{"name":"SCORPI\u00d3N ROJO","code":"HPF30"},{"name":"SCORPION AMARILLO","code":"HPF34"},{"name":"SCORPION CHOCOLATE","code":"HPF37"},{"name":"7 POTS ROJO","code":"HPF40"},{"name":"SCORPI\u00d3N MORUGA","code":"HPF36"},{"name":"CAROLINA REAPER","code":"HPF35"}]},"INJERTO DE BERENJENA":{"color":"#FF0000","items":[{"name":"LARGA NEGRA","code":"H570"},{"name":"OVALADA NEGRA","code":"H571"},{"name":"REDONDA VIOLETA","code":"H572"},{"name":"ESTRIADA","code":"HIN32"},{"name":"LARGA BLANCA","code":"HIN55"},{"name":"LARGA NEGRA INJ.TOMATE","code":"HIN45"},{"name":"REDONDA BLANCA","code":"HIN23"},{"name":"REDONDA NEGRA","code":"HIN21"},{"name":"REDONDA VIOLETA","code":"HIN22"}]},"AJOS":{"color":"#00B0F0","items":[{"name":"GIGANTE","code":"H744"}]},"ALBAHACAS":{"color":"#00B0F0","items":[{"name":"AL LIMON","code":"H717"},{"name":"GRECO A PALLA","code":"H643"},{"name":"HOJA DE LECHUGA","code":"H748"},{"name":"ITALIANA GENOVESA","code":"H619"},{"name":"VIOLETA RED RUBIN","code":"H620"}]},"INJERTO DE PIMIENTO":{"color":"#FF0000","items":[{"name":"CUADRADO AMARILLO","code":"H573"},{"name":"CUADRADO ROJO","code":"H574"},{"name":"CUADRADO AMARILLO","code":"HIN1"},{"name":"CUADRADO ROJO","code":"HIN12"},{"name":"CUERNO AMARILLO","code":"HIN10"},{"name":"CUERNO ROJO","code":"HIN18"},{"name":"PARA FREIR ISOTTA","code":"HIN47"}]},"INJERTO DE TOMATE":{"color":"#FF0000","items":[{"name":"ADITALADO LOBELLO PLUS","code":"H577"},{"name":"CANESTRINO","code":"H581"},{"name":"CEREZA","code":"H575"},{"name":"CORAZ\u00d3N DE BUEY CLASICO","code":"H580"},{"name":"CORAZ\u00d3N LIGURE","code":"H576"},{"name":"LARGO SAN MARZANO","code":"H578"},{"name":"REDONDE DE MESA","code":"H579"},{"name":"ADITALADO AMARILLO LEMMON","code":"HIN39"},{"name":"ADILATADO NARANJA","code":"HIN46"},{"name":"ADILATADO VERDE var.MANGO","code":"HIN52"},{"name":"ADITALADO AMARILLO LEMONPLUM","code":"HIN36"},{"name":"ADITALADO LOBELLO PLUS","code":"HIN17"},{"name":"BERRY CONFETTO","code":"HIN25"},{"name":"CANESTRINO DE LUCCA","code":"HIN24"},{"name":"CEREZA BINGO TWITTER","code":"HIN16"},{"name":"CEREZA EDOX","code":"HIN7"},{"name":"CHERRY BLU  Var. CANDY F1","code":"HIN57"},{"name":"CHERRY BOMBON","code":"HIN49"},{"name":"CORAZ\u00d3N AMARILLO","code":"HIN38"},{"name":"CORAZ\u00d3N DE BUEY CL\u00c1SICO","code":"HIN19"},{"name":"CORAZ\u00d3N LIGURE PONIENTE","code":"HIN6"},{"name":"CORAZ\u00d3N LIGURE ROSA","code":"HIN40"},{"name":"CUERNO DE LOS ANDES","code":"HIN42"},{"name":"ESTRIADO FIORENTINO GOLDMAR","code":"HIN27"},{"name":"GIGANTE  SORRETO ROSALINDA","code":"HIN37"},{"name":"GIGANTE PATATERO","code":"HIN31"},{"name":"HONEY MOON RESISTENTE","code":"HIN35"},{"name":"HORUS RACIMO","code":"HIN28"},{"name":"LARGO SAN MARZANO","code":"HIN3"},{"name":"MARMANDE","code":"HIN8"},{"name":"MINI PERINO DUNNE","code":"HIN34"},{"name":"OVALADO LUANA","code":"HIN9"},{"name":"OVALADO NEGRO","code":"HIN53"},{"name":"PERA D\u00b4ABRUZZO","code":"HIN29"},{"name":"PIENNOLO VESUVIANO","code":"HIN54"},{"name":"QUINTO GUSTO YUP","code":"HIN13"},{"name":"REDONDO BUFFALOSTEAK","code":"HIN43"},{"name":"REDONDO DE MESA FANTASIO","code":"HIN2"},{"name":"VESUVIANO DOMINUS","code":"HIN26"},{"name":"ZEBRA","code":"HIN30"}]},"ALCACHOFAS":{"color":"#00B0F0","items":[{"name":"ROMANA ARTEMISA","code":"H673"},{"name":"VIOLETA PRECOZ CAPRICCIO","code":"H773"}]},"APIOS":{"color":"#00B0F0","items":[{"name":"VERDE DARKLET","code":"H634"}]},"SANDIAS":{"color":"#00B0F0","items":[{"name":"LARGA REGINA","code":"H641"},{"name":"OVALADA","code":"H625"}]},"BERENJENAS":{"color":"#00B0F0","items":[{"name":"BABY VIOLETA LARGA","code":"H684"},{"name":"BLANCA CLARA","code":"H606"},{"name":"ESTRIADA LUCILLA","code":"H653"},{"name":"LARGA NEGRA NILO","code":"H613"},{"name":"LILA BEATRICE","code":"H630"},{"name":"OVALADA NEGRA FANTASTIC","code":"H618"},{"name":"REDONDA VIOLETA SABELLE","code":"H676"},{"name":"SETA","code":"H787"}]},"TOMATES":{"color":"#00B0F0","items":[{"name":"ADITALADO AMARILLO","code":"H721"},{"name":"ADITALADO BABY TRILLY","code":"H740"},{"name":"ADITALADO LOBELLO PLUS","code":"H628"},{"name":"ADITALADO NARANJA","code":"H756"},{"name":"BELMONTE SILANO PODEROSA","code":"H637"},{"name":"CANESTRINO LUCCA","code":"H657"},{"name":"CEREZA AMARILLO","code":"H600"},{"name":"CEREZA BINGO","code":"H663"},{"name":"CEREZA CHOCOLATE","code":"H759"},{"name":"CEREZA DULCE STRILLO","code":"H669"},{"name":"CEREZA NARANJA","code":"H752"},{"name":"CEREZA OVALADO NEGRO","code":"H781"},{"name":"CEREZA PACHITOP","code":"H612"},{"name":"CEREZA var. RED MOON","code":"H786"},{"name":"CHERRY MUY DULCE","code":"H779"},{"name":"CORAZ\u00d3N DE BUEY CL\u00c1SICO","code":"H605"},{"name":"CORAZ\u00d3N LIGURE CUOREMIO","code":"H629"},{"name":"CORAZON LIGURE DIABLO","code":"H751"},{"name":"CORAZ\u00d3N LIGURE ROSAMUNDA","code":"H741"},{"name":"CUERNO DE LOS ANDES","code":"H668"},{"name":"DULCE GOURMANSUN","code":"H771"},{"name":"FANTASIO RESISTENTE","code":"H757"},{"name":"FIORENTINO ESTRIADO","code":"H658"},{"name":"GIGANTE BEEFSTEAK","code":"H597"},{"name":"GIGANTE BIG PATATA","code":"H769"},{"name":"GIGANTE BUFFALOSTEAK","code":"H660"},{"name":"HONEY MOON (RESISTENTE)","code":"H755"},{"name":"HORUS EN RACIMO","code":"H627"},{"name":"MARMADE 'RAF'","code":"H785"},{"name":"MARMANDE  MARMYTO","code":"H667"},{"name":"MARMANDE CAPPUCCINO","code":"H758"},{"name":"MINI SAN MARZANO","code":"H645"},{"name":"MINI SAN MARZANO","code":"H789"},{"name":"NEGRO DE CRIMEA KAKAO","code":"H601"},{"name":"OPTIMA ENSALADA","code":"H701"},{"name":"OVALADO LUANA","code":"H615"},{"name":"PERA ABRUZO var. DEKO","code":"H770"},{"name":"PRINCIPE BORGHESE","code":"H646"},{"name":"QUINTO GUSTO TIPO CAMONE","code":"H747"},{"name":"SAN MARZANO GIGANTE ENERO","code":"H604"},{"name":"SAN MARZANO LARGO OSKAR","code":"H611"},{"name":"SAN MARZANO SCATALONE","code":"H626"},{"name":"SARACENO ENSALADA","code":"H610"},{"name":"SARDO REGINELA","code":"H638"},{"name":"SORRENTO ROSALINDA","code":"H700"},{"name":"VESUVIANO DOMINUS","code":"H617"},{"name":"VESUVIANO FIASCHETTO ARNEO","code":"H753"},{"name":"ZEBRINO CRISPINO PLUM","code":"H665"}]},"M 14 INJERTADA":{"color":"#FF0000","items":[]},"CALABACINES":{"color":"#00B0F0","items":[{"name":"AMARILLO","code":"H715"},{"name":"ARBOL DE SARZANA","code":"H680"},{"name":"CLARO FLOR MELISA","code":"H790"},{"name":"CLARO LEOPARD","code":"H592"},{"name":"CLARO TREPADOR","code":"H713"},{"name":"DE FLOR","code":"H729"},{"name":"LARGO FIORENTINO","code":"H685"},{"name":"OSCURO DESERT ALOHA","code":"H609"},{"name":"OSCURO TREPADOR","code":"H714"},{"name":"REDONDO CLARO NIZA","code":"H635"},{"name":"ROMANESCO MARZIO","code":"H768"}]},"INJERTO DE MELON":{"color":"#FF0000","items":[{"name":"BRASILENO","code":"HIN51"},{"name":"LISO DULCE  BACIR","code":"HIN11"},{"name":"RAYADO DULCE  MAGNIFICENZA","code":"HIN4"}]},"INJERTO DE PEPINO":{"color":"#FF0000","items":[{"name":"BURPLESS TASTY KING","code":"HIN15"},{"name":"DIGERIBLE INDURAN","code":"HIN41"}]},"INJERTO DE SANDIA":{"color":"#FF0000","items":[{"name":"LARGA CRIMSON REGINA","code":"HIN14"},{"name":"MINI  MODELLINO","code":"HIN48"},{"name":"OVALADA CRIMSON   BOMBER","code":"HIN5"}]},"M 14 AROMATICAS":{"color":"#00B050","items":[]},"AROMATICAS":{"color":"#00B050","items":[{"name":"AJEDREA ROMANA","code":"HA29"},{"name":"ALBAHACA GLACIAL","code":"HA55"},{"name":"ALBAHACA ITALIANA GERVASO","code":"HPF12"},{"name":"BORRAJA","code":"HA21"},{"name":"CILANTRO","code":"HA20"},{"name":"CURCUMA","code":"HA51"},{"name":"ELICRISO/ PLANTA DEL CURRY","code":"HA42"},{"name":"ENELDO","code":"HA26"},{"name":"ESTRAGON","code":"HA13"},{"name":"INCIENSIO","code":"HA25"},{"name":"JENGIBRE O GINGER","code":"HA44"},{"name":"LAUREL","code":"HA56"},{"name":"LAVANDA STOECHAS","code":"HA39"},{"name":"LAVANDA VERA","code":"HA1"},{"name":"MANZANILLA","code":"HA16"},{"name":"MEJORANA","code":"HA2"},{"name":"MELISA","code":"HA11"},{"name":"MENTA HIERBABUENA","code":"HA3"},{"name":"MENTA ROJA","code":"HA40"},{"name":"OREGANO","code":"HA8"},{"name":"PEREJIL GIGANTE","code":"HA32"},{"name":"ROMERO OFFICINALIS","code":"HA5"},{"name":"ROMERO RASTRERO","code":"HA15"},{"name":"SALVIA HOJA ESTRECHA","code":"HA6"},{"name":"SALVIA LARGA","code":"HA18"},{"name":"TOMILLO COMUN","code":"HA7"},{"name":"TOMILLO LIMONERO","code":"HA14"}]},"CALABAZAS":{"color":"#00B0F0","items":[{"name":"BERETTA PIACENTINA","code":"H661"},{"name":"DULCE HOKKAIDO","code":"H711"},{"name":"DULCE MINI BUTTERNUT","code":"H750"},{"name":"GIGANTE","code":"H677"},{"name":"HALLOWEEN RACER","code":"H648"},{"name":"IRON CAP","code":"H761"},{"name":"LARGA DE NAPOLES","code":"H746"},{"name":"LARGA VIOLINA","code":"H649"},{"name":"MANTOVANA","code":"H778"},{"name":"MARINA DE CHIOGGIA","code":"H650"},{"name":"MOSCATA DE PROVENZA","code":"H725"},{"name":"REDONDA DELICA","code":"H710"},{"name":"SICILIANA DE PERGOLA","code":"H647"},{"name":"TROMPETA DE ALBENGA","code":"H712"},{"name":"ZUCCURI CASTA\u00d1A","code":"H775"}]},"FRESAS":{"color":"#00B0F0","items":[{"name":"BLANCA","code":"H686"},{"name":"DEL BOSQUE REINA VALLES","code":"H595"},{"name":"REFLORECIENTE DULCINEA","code":"H594"}]},"MELONES":{"color":"#00B0F0","items":[{"name":"LISO  BACIR","code":"H624"},{"name":"RODAJA MAGNIFICENZA","code":"H632"}]},"PEPINOS":{"color":"#00B0F0","items":[{"name":"CLASICO INDURAN","code":"H633"},{"name":"ENCURTIDO","code":"H782"},{"name":"LARGO BURPLESS","code":"H593"},{"name":"MEDIO LARGO BLANCO","code":"H652"}]},"PEREJIL":{"color":"#00B0F0","items":[{"name":"CLASICO GIGANTE TIT\u00c1N","code":"H596"}]},"PIMIENTOS":{"color":"#00B0F0","items":[{"name":"CUADRADO AMARILLO","code":"H614"},{"name":"CUADRADO NARANJA","code":"H644"},{"name":"CUADRADO ROJO","code":"H590"},{"name":"CUADRADO VERDE","code":"H622"},{"name":"CUERNO AMARILLO","code":"H631"},{"name":"CUERNO ROJO ALCESTE","code":"H598"},{"name":"DIGERIBLE CITRINO","code":"H654"},{"name":"FRIGGITELLO","code":"H607"},{"name":"SIGARETA AMARILLO","code":"H621"},{"name":"TOPEPO ROJO HORNO","code":"H642"}]}},"semana":12}</script>
+<script>
+
+var ORD = {};
+var SEM = 0;
+var DATA = null;
+var META = {};
+
+function init() {
+  var el = document.getElementById('appdata');
+  DATA = JSON.parse(el.textContent);
+  SEM = DATA.semana;
+  buildPanel('pack');
+  buildPanel('maceta');
+  updCN();
+}
+
+function colorCls(h) {
+  if (!h) return 'cx';
+  h = h.toLowerCase();
+  if (h === '#00b050' || h === '#92d050') return 'cg';
+  if (h === '#ffff00') return 'cy';
+  if (h === '#ff0000') return 'cr';
+  if (h === '#00b0f0') return 'cb';
+  if (h === '#ffc000') return 'co';
+  return 'cx';
+}
+
+function esc(s) {
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function buildPanel(sk) {
+  var sheet = DATA[sk];
+  var parts = [];
+  for (var cat in sheet) {
+    var cd = sheet[cat];
+    if (!cd.items || !cd.items.length) continue;
+    var cl = colorCls(cd.color);
+    var rows = [];
+    for (var i = 0; i < cd.items.length; i++) {
+      var it = cd.items[i];
+      var sid = (sk + '_' + it.code).replace(/[^a-zA-Z0-9]/g, '_');
+      META[sid] = { sk: sk, code: it.code, name: it.name, cat: cat };
+      var key = sk + '|' + it.code;
+      var qty = ORD[key] ? ORD[key].qty : 0;
+      var cardCls = qty > 0 ? 'pcard sel' : 'pcard';
+      var url = 'https://www.semillasiluro.com/semillas/' + it.code.toLowerCase() + '/';
+      var card = '<div class="' + cardCls + '" id="C_' + sid + '">'
+        + '<div class="pinfo">'
+        + '<div class="pname">' + esc(it.name) + '</div>'
+        + '<a class="pcode" href="' + url + '" target="_blank">' + esc(it.code) + ' ↗</a>'
+        + '</div>'
+        + '<div class="qctl">'
+        + '<button class="qbtn" data-sid="' + sid + '" data-d="-1" onclick="adj(this)">&#8722;</button>'
+        + '<input class="qinp" id="I_' + sid + '" type="number" value="' + qty + '" min="0" data-sid="' + sid + '" onchange="onInp(this)">'
+        + '<button class="qbtn" data-sid="' + sid + '" data-d="1" onclick="adj(this)">+</button>'
+        + '</div>'
+        + '</div>';
+      rows.push(card);
+    }
+    parts.push(
+      '<div class="csec">'
+      + '<div class="chdr ' + cl + '" onclick="togCat(this.parentElement)">'
+      + '<h2>' + esc(cat) + '</h2>'
+      + '<span class="tog">&#9660;</span>'
+      + '</div>'
+      + '<div class="cbdy"><div class="pgrid">' + rows.join('') + '</div></div>'
+      + '</div>'
+    );
+  }
+  document.getElementById('pnl-' + sk).innerHTML = parts.join('');
+}
+
+function adj(btn) {
+  var sid = btn.getAttribute('data-sid');
+  var d = parseInt(btn.getAttribute('data-d'));
+  var inp = document.getElementById('I_' + sid);
+  var v = Math.max(0, (parseInt(inp.value) || 0) + d);
+  inp.value = v;
+  save(sid, v);
+}
+
+function onInp(inp) {
+  var sid = inp.getAttribute('data-sid');
+  var v = Math.max(0, parseInt(inp.value) || 0);
+  inp.value = v;
+  save(sid, v);
+}
+
+function save(sid, qty) {
+  var m = META[sid];
+  var key = m.sk + '|' + m.code;
+  var card = document.getElementById('C_' + sid);
+  if (qty > 0) {
+    ORD[key] = { sk: m.sk, code: m.code, name: m.name, cat: m.cat, qty: qty };
+    if (card) card.classList.add('sel');
+  } else {
+    delete ORD[key];
+    if (card) card.classList.remove('sel');
+  }
+  updCN();
+}
+
+function updCN() {
+  var t = 0;
+  for (var k in ORD) t += ORD[k].qty;
+  document.getElementById('CN').textContent = t;
+}
+
+function togCat(sec) { sec.classList.toggle('coll'); }
+
+function swTab(name, btn) {
+  document.querySelectorAll('.tbtn').forEach(function(b) { b.classList.remove('on'); });
+  document.querySelectorAll('.pnl').forEach(function(p) { p.classList.remove('on'); });
+  btn.classList.add('on');
+  document.getElementById('pnl-' + name).classList.add('on');
+  document.getElementById('SB').style.display = name === 'resumen' ? 'none' : '';
+  if (name === 'resumen') renderRes();
+}
+
+function goRes() {
+  swTab('resumen', document.getElementById('TB3'));
+}
+
+function doSearch(q) {
+  q = q.toLowerCase().trim();
+  document.querySelectorAll('.csec').forEach(function(sec) {
+    var any = false;
+    sec.querySelectorAll('.pcard').forEach(function(card) {
+      var nm = card.querySelector('.pname').textContent.toLowerCase();
+      var cd = card.querySelector('.pcode').textContent.toLowerCase();
+      var ok = !q || nm.indexOf(q) >= 0 || cd.indexOf(q) >= 0;
+      card.style.display = ok ? '' : 'none';
+      if (ok) any = true;
+    });
+    sec.style.display = any ? '' : 'none';
+    if (q && any) sec.classList.remove('coll');
+  });
+}
+
+function renderRes() {
+  var el = document.getElementById('RC');
+  var items = [];
+  for (var k in ORD) items.push(ORD[k]);
+  if (!items.length) {
+    el.innerHTML = '<div class="rempty">Aún no has añadido ninguna planta.<br>Ve a los catálogos y pon cantidades.</div>';
+    return;
+  }
+  var grps = {};
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    var gk = it.sk + '|' + it.cat;
+    if (!grps[gk]) grps[gk] = { lbl: (it.sk === 'pack' ? 'PACK' : 'MACETA') + ' — ' + it.cat, rows: [] };
+    grps[gk].rows.push(it);
+  }
+  var cli = document.getElementById('CLI').value.trim() || '—';
+  var tot = items.reduce(function(s, i) { return s + i.qty; }, 0);
+  var h = '<p style="font-size:.85rem;margin-bottom:12px"><strong>Cliente:</strong> ' + esc(cli) + ' &nbsp;&middot;&nbsp; <strong>Semana:</strong> ' + SEM + '</p>';
+  h += '<table class="rtbl"><thead><tr><th class="ccod">Código</th><th>Nombre</th><th>Formato</th><th>Familia</th><th class="cqty">Cant.</th></tr></thead><tbody>';
+  for (var gk in grps) {
+    var g = grps[gk];
+    h += '<tr class="rgh"><td colspan="5">' + esc(g.lbl) + '</td></tr>';
+    for (var i = 0; i < g.rows.length; i++) {
+      var it = g.rows[i];
+      var url = 'https://www.semillasiluro.com/semillas/' + it.code.toLowerCase() + '/';
+      h += '<tr><td class="ccod"><a href="' + url + '" target="_blank" style="color:var(--gd);text-decoration:none">' + esc(it.code) + '</a></td>'
+        + '<td>' + esc(it.name) + '</td>'
+        + '<td style="font-size:.76rem">' + (it.sk === 'pack' ? 'Pack' : 'Maceta') + '</td>'
+        + '<td style="font-size:.76rem">' + esc(it.cat) + '</td>'
+        + '<td class="cqty">' + it.qty + '</td></tr>';
+    }
+  }
+  h += '</tbody></table>';
+  h += '<div class="rtot"><span>Total plantas en pedido:</span><span class="tn">' + tot + ' ud.</span></div>';
+  var msg = '*PEDIDO SEMANA ' + SEM + ' — Semillas Iluro*\nCliente: ' + cli + '\n\n';
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    msg += '[' + it.code + '] ' + it.name + ' (' + (it.sk === 'pack' ? 'Pack' : 'Maceta') + ') — ' + it.qty + ' ud.\n';
+  }
+  msg += '\nTotal: ' + tot + ' plantas';
+  h += '<div class="rftr">'
+    + '<button class="btn btn-r" onclick="clearAll()">&#128465; Limpiar</button>'
+    + '<button class="btn btn-g" onclick="window.print()">&#128424; Imprimir</button>'
+    + '<a class="btn btn-w" href="https://wa.me/34610690690?text=' + encodeURIComponent(msg) + '" target="_blank">&#128242; WhatsApp</a>'
+    + '</div>';
+  el.innerHTML = h;
+}
+
+function clearAll() {
+  if (!confirm('Limpiar todo el pedido?')) return;
+  for (var k in ORD) {
+    var parts = k.split('|');
+    var sid = (parts[0] + '_' + parts[1]).replace(/[^a-zA-Z0-9]/g, '_');
+    var inp = document.getElementById('I_' + sid);
+    if (inp) inp.value = 0;
+    var card = document.getElementById('C_' + sid);
+    if (card) card.classList.remove('sel');
+    delete ORD[k];
+  }
+  updCN();
+  renderRes();
+}
+
+window.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
